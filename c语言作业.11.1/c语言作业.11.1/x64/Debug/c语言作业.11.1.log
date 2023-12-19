@@ -1,0 +1,3 @@
+﻿  test.c
+D:\visual studio项目\c语言作业.11.1\c语言作业.11.1\test.c(10,10): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  c语言作业.11.1.vcxproj -> D:\visual studio项目\c语言作业.11.1\x64\Debug\c语言作业.11.1.exe
