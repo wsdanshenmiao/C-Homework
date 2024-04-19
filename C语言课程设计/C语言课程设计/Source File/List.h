@@ -8,7 +8,10 @@
 #ifndef __LIST__H__
 #define __LIST__H__
 
-#include "GlobalVariable.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <memory.h>
+#include <malloc.h>
 
 typedef struct Node
 {
@@ -33,7 +36,7 @@ void PopBack(List* list);
 void DefaultDeallocate(void* pValue);
 Node* Insert(List* list, Node* pos, const void* const pValue);
 Node* Erase(List* list, Node* pos);
-Node* Find(List* list, bool findFunc(void*));
+Node* Find(List* list, bool findFunc(void*), void* cmpValue);
 void TraversalOperation(List* list, void operation(void*));
 void Clear(List* list);
 List* Destroy(List* list);

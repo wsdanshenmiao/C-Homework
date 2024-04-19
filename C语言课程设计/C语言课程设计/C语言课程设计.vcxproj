@@ -156,7 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source File\GlobalVariable.h" />
-    <ClInclude Include="Source File\HelpFunc.h" />
+    <ClInclude Include="Source File\Util.h" />
     <ClInclude Include="Source File\List.h" />
     <ClInclude Include="Source File\LoginSystem.h" />
     <ClInclude Include="Source File\Merchant.h" />

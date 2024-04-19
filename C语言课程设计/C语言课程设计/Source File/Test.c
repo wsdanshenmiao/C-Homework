@@ -6,7 +6,7 @@
 #include "LoginSystem.h"
 #include "Merchant.h"
 #include "User.h"
-#include "HelpFunc.h"
+#include "Util.h"
 #include "List.h"
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
@@ -18,9 +18,9 @@ typedef struct Object
 	int age;
 }Object;
 
-bool FindFunc(void* pValue)
+bool FindFunc(void* pValue, void* cmpValue)
 {
-	return ((Object*)pValue)->age == 0;
+	return ((Object*)pValue)->age == *((int*)cmpValue);
 }
 
 void Operation(void* pValue)
@@ -42,7 +42,7 @@ void test()
 		strncpy(object1->phone, "123", sizeof("123"));
 		PushFront(list, object1);
 	}
-	printf("size: %d\n", list->m_Size);
+	printf("size: %lld\n", list->m_Size);
 	TraversalOperation(list, Operation);
 	printf("-----------------------------\n");
 
@@ -53,7 +53,7 @@ void test()
 		strncpy(object1->phone, "456", sizeof("456"));
 		PushBack(list, object1);
 	}
-	printf("size: %d\n", list->m_Size);
+	printf("size: %lld\n", list->m_Size);
 	TraversalOperation(list, Operation);
 	printf("-----------------------------\n");
 
@@ -67,10 +67,11 @@ void test()
 	PopBack(list);
 	PopBack(list);
 	TraversalOperation(list, Operation);
-	printf("size: %d\n", list->m_Size);
+	printf("size: %lld\n", list->m_Size);
 	printf("-----------------------------\n");
 
-	Node* node = Find(list, FindFunc);
+	int cmpValue = 0;
+	Node* node = Find(list, FindFunc, &cmpValue);
 	printf("%d\n", ((Object*)node->m_Data)->age);
 	for (int i = 0; i < 5; i++) {
 		Object* object1 = MALLOC(Object);
@@ -92,13 +93,13 @@ void test()
 
 	Clear(list);
 	TraversalOperation(list, Operation);
-	printf("size: %d\n", list->m_Size);
+	printf("size: %lld\n", list->m_Size);
 	list = Destroy(list);
 }
 
 
-int main()
-{
-	test();
-	return 0;
-}
+//int main()
+//{
+//	test();
+//	return 0;
+//}

@@ -175,16 +175,16 @@ Node* Erase(List* list, Node* pos)
 
 /*
 *  @description : 查找某个节点，需要提供查找数据的函数，比较成功时要返回 true
-*  @param		: list 操作的链表，findFunc 查找函数，用于定义怎样查找
+*  @param		: list 操作的链表，findFunc 查找函数，用于定义怎样查找， cmpValue用于比较的值
 *  @return		: 查找到的节点，查找失败是返回 NULL
 */
-Node* Find(List* list, bool findFunc(void*))
+Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue)
 {
 	if (!list || !list->m_Head || IsEmpty(list)) {
 		return NULL;
 	}
 	for (Node* node = list->m_Head->m_Next; node != list->m_Head; node = node->m_Next) {
-		if (findFunc(node->m_Data)) {
+		if (findFunc(node->m_Data, cmpValue)) {
 			return node;
 		}
 	}
@@ -224,7 +224,9 @@ void Clear(List* list)
 */
 List* Destroy(List* list)
 {
-	ASSERTLIST(list);
+	if (!list || list->m_Head) {
+		return NULL;
+	}
 	Clear(list);
 	free(list->m_Head);
 	free(list);
