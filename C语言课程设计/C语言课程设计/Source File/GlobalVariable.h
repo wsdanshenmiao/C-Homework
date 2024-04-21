@@ -27,7 +27,7 @@ typedef struct Userinfo
 	char m_Password[20];		// 用户密码
 	char m_UserPhoneNum[20];	// 用户手机号
 	char m_Address[40];			// 地址
-	size_t m_balance;			// 余额
+	size_t m_Balance;			// 余额
 }Userinfo;
 
 // 商品结构体
@@ -41,7 +41,7 @@ List* g_OrderForm;				// 订单链表
 
 List* g_Userinfo;					// 用户信息链表 
 
-List* g_Commofity;				// 商品链表
+List* g_Commodity;				// 商品链表
 
 
 #endif // !__GLOBALVARIABLE__H__

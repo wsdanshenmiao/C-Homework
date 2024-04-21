@@ -1,13 +1,13 @@
 #include "LoginSystem.h"
 
 //商家登录
-bool MerchantLogin()
+Node* MerchantLogin()
 {
 
 }
 
 //用户登录
-bool UserLogin()
+Node* UserLogin()
 {
 
 }

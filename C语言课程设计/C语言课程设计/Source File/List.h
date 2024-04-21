@@ -36,7 +36,7 @@ void PopBack(List* list);
 void DefaultDeallocate(void* pValue);
 Node* Insert(List* list, Node* pos, const void* const pValue);
 Node* Erase(List* list, Node* pos);
-Node* Find(List* list, bool findFunc(void*), void* cmpValue);
+Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue);
 void TraversalOperation(List* list, void operation(void*));
 void Clear(List* list);
 List* Destroy(List* list);

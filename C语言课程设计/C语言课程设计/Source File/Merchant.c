@@ -17,7 +17,7 @@ void MerchantCatalogue()
 void PrintProducts(void* pValue)
 {
 	Commodity* commodity = (Commodity*)pValue;
-	printf("%s\t%lld\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
+	printf("%s\t%%zu\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
 }
 
 // 创建对象
@@ -46,7 +46,7 @@ void AddProducts()
 
 	printf("请输入商品价格：\n");
 	size_t price;
-	erromes = scanf("%lld", &price);
+	erromes = scanf("%zu", &price);
 	CleanBuffer();
 	if (NumInputFailure(erromes)) {
 		printf("输入错误。\n");
@@ -56,7 +56,7 @@ void AddProducts()
 	if (!commodity) {
 		return;
 	}
-	PushFront(g_Commofity, commodity);	//插入对象
+	PushFront(g_Commodity, commodity);	//插入对象
 }
 
 
@@ -78,7 +78,7 @@ Node* ChooseProduct()
 	if (StrInputFailure(erromes, name)) {
 		return NULL;
 	}
-	return Find(g_Commofity, FindName, name);
+	return Find(g_Commodity, FindName, name);
 }
 
 // 修改商品
@@ -98,7 +98,6 @@ void ModifyProducts()
 	printf("0.取消修改\t\t1.名字\t\t2.价格\n");
 	scanf("%d", &select);
 	CleanBuffer();
-	//system("cls");
 	switch (select) {
 	case EXIT: {	// 退出
 		break;
@@ -143,7 +142,7 @@ void ModifyProducts()
 void PrintOrderForm(void* pValue)
 {
 	OrderForm* orderForm = (OrderForm*)(pValue);
-	printf("%lld\t%s\t%lld\t%lld\t%s\t%s\t%s\t%s\n",
+	printf("%%zu\t%s\t%%zu\t%%zu\t%s\t%s\t%s\t%s\n",
 		orderForm->m_OrderNumber, orderForm->m_CommodityName,
 		orderForm->m_CommodityNum, orderForm->m_CommodityPrices,
 		orderForm->m_UserName, orderForm->m_UserPhoneNum,
@@ -162,7 +161,7 @@ Node* ChooseOrderForm()
 {
 	printf("请输入要管理的订单编号：\n");
 	size_t orderNum;
-	int erromes = scanf("%lld", &orderNum);
+	int erromes = scanf("%%zu", &orderNum);
 	CleanBuffer();
 	if (NumInputFailure(erromes)) {
 		return NULL;
@@ -260,7 +259,7 @@ void MerchantUI()
 		switch (select) {
 		case EXIT: {	// 退出
 			TraversalOperation(g_OrderForm, SaveOrderForm);
-			TraversalOperation(g_Commofity, SaveCommodity);
+			TraversalOperation(g_Commodity, SaveCommodity);
 			break;
 		}
 		case ADDPRODUCTS: {	// 添加商品
@@ -269,7 +268,7 @@ void MerchantUI()
 			break;
 		}
 		case VIEWPRODUCTS: {	//查看商品
-			TraversalOperation(g_Commofity, PrintProducts);
+			TraversalOperation(g_Commodity, PrintProducts);
 			getchar();
 			break;
 		}

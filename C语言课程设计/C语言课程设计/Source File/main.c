@@ -54,7 +54,7 @@ int main()
 {
 	g_OrderForm = InitList(DefaultDeallocate);
 	g_Userinfo = InitList(DefaultDeallocate);
-	g_Commofity = InitList(DefaultDeallocate);
+	g_Commodity = InitList(DefaultDeallocate);
 	MasterUI();
 	return 0;
 }
