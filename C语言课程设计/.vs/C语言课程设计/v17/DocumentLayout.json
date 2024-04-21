@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|solutionrelative:C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|solutionrelative:C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\GlobalVariable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|solutionrelative:C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\GlobalVariable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|solutionrelative:C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|solutionrelative:C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8CA836DA-7C01-493E-96C6-60AD2F3F72EF}|C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1.vcxproj|D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -30,43 +38,42 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "main.c",
               "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\main.c",
               "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\main.c",
               "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\main.c",
               "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\main.c",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-04-09T04:24:59.561Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Merchant.h",
-              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
-              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
-              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
-              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAYAAAA",
+              "Title": "User.h",
+              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h",
+              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h",
+              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h",
+              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-19T02:29:39.598Z",
+              "WhenOpened": "2024-04-21T11:18:50.524Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Merchant.c",
-              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
-              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
-              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
-              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEcAAAAVAAAA",
+              "Title": "User.c",
+              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c",
+              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c",
+              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c",
+              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\User.c",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAKUAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-04-19T02:28:20.162Z",
+              "WhenOpened": "2024-04-21T10:58:27.253Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -86,9 +93,35 @@
               "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\GlobalVariable.h",
               "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\GlobalVariable.h",
               "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\GlobalVariable.h",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAACEAAAAYAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABsAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-04-19T07:20:38.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Merchant.h",
+              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
+              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
+              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
+              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-19T02:29:39.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Merchant.c",
+              "DocumentMoniker": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
+              "RelativeDocumentMoniker": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
+              "ToolTip": "D:\\Git\u7248\u672C\u7BA1\u7406\\C\\C-Homework\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
+              "RelativeToolTip": "C\u8BED\u8A00\u8BFE\u7A0B\u8BBE\u8BA1\\Source File\\Merchant.c",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAcwHEAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-04-19T02:28:20.162Z",
               "EditorCaption": ""
             }
           ]

@@ -129,6 +129,110 @@ void UserCatalogue()
 
 
 
+
+bool IsNumber(const char* str, size_t num)
+{
+    for (int i = 0; i < num; ++i) {
+        if (!isalnum(str[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void InformChange(Node* userMes)
+{
+    enum Modify {
+        EXIT, NAME, PASSWORD, PHONENUMBER, ADDRESS
+    };
+    enum Modify select;
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    printf("请选择要修改的信息:\n");
+    printf("0.取消修改\t\t1.名字\t\t2.密码\t\t3.手机号\t\t4.地址\n");
+    scanf("%d", &select);
+    CleanBuffer();
+    system("cls");
+    switch (select) {
+    case EXIT: {	// 退出
+        break;
+    }
+    case NAME: {
+        printf("请输入新的名字：\n");
+        char name[20];
+        int erromes = scanf("%s", name);
+        CleanBuffer();
+        if (StrInputFailure(erromes, name)) {
+            printf("输入错误。\n");
+            return;
+        }
+        strncpy(userinfo->m_Username, name, sizeof(name));
+        printf("修改成功。\n");
+        break;
+    }
+    case PASSWORD: {
+        printf("请输入新的密码：\n");
+        char password1[20];
+        int erromes = scanf("%s", password1);
+        CleanBuffer();
+        if (StrInputFailure(erromes, password1) || !IsNumber(password1, sizeof(password1))) {
+            printf("输入错误。\n");
+            return;
+        }
+        printf("请确认新的密码：\n");
+        char password2[20];
+        int erromes = scanf("%s", password2);
+        CleanBuffer();
+        if (StrInputFailure(erromes, password2) || !IsNumber(password2, sizeof(password2))) {
+            printf("输入错误。\n");
+            return;
+        }
+        if (strncmp(password1, password2, sizeof(password1) == 0)) {
+            strncpy(userinfo->m_Password, password2, sizeof(password2));
+            printf("修改成功。\n");
+        }
+        else {
+            printf("输入不相同。\n");
+            return;
+        }
+        break;
+    }
+    case PHONENUMBER: {
+        printf("请输入新的手机号：\n");
+        char phoneNum[20];
+        int erromes = scanf("%s", phoneNum);
+        CleanBuffer();
+        if (StrInputFailure(erromes, phoneNum) || !IsNumber(phoneNum, sizeof(phoneNum))) {
+            printf("输入错误。\n");
+            return;
+        }
+        strncpy(userinfo->m_UserPhoneNum, phoneNum, sizeof(phoneNum));
+        printf("修改成功。\n");
+        break;
+    }
+    case ADDRESS: {
+        printf("请输入新的名字：\n");
+        char address[40];
+        int erromes = scanf("%s", address);
+        CleanBuffer();
+        if (StrInputFailure(erromes, address)) {
+            printf("输入错误。\n");
+            return;
+        }
+        strncpy(userinfo->m_Address, address, sizeof(address));
+        printf("修改成功。\n");
+        break;
+    }
+    default: {
+        printf("输入错误。\n");
+        getchar();
+        break;
+    }
+    }
+}
+
+
+
+
 void UserUI()
 {
 
@@ -138,7 +242,7 @@ void UserUI()
     }
 
     enum UserMenu {
-        EXIT, PURCHASEPRODUCT, RECHARGE
+        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE
     };
 	enum MasterMenu select;
 	do {
@@ -157,6 +261,10 @@ void UserUI()
         }
         case RECHARGE: {
             Recharge(UserMes);
+            break;
+        }
+        case INFORMCHANGE: {
+            InformChange(UserMes);
             break;
         }
 		default: {
