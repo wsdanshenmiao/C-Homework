@@ -7,19 +7,13 @@
 
 void MerchantCatalogue()
 {
-	printf("*****************0.EXIT		            ********************\n");
-	printf("*****************1.ADDPRODUCTS			********************\n");
-	printf("*****************2.VIEWPRODUCTS		    ********************\n");
-	printf("*****************3.MODIFYPRODUCTS		********************\n");
-	printf("*****************4.MANAGEDISTRIBUTE		********************\n");
+	printf("**************   0.返回上一界面   ********************\n");
+	printf("**************   1.添加商品       ********************\n");
+	printf("**************   2.查看商品       ********************\n");
+	printf("**************   3.修改商品信息   ********************\n");
+	printf("**************   4.修改订单信息   ********************\n");
 }
 
-// 打印商品链表
-void PrintProducts(void* pValue, void* operateValue)
-{
-	Commodity* commodity = (Commodity*)pValue;
-	printf("%s\t%zu\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
-}
 
 // 创建对象
 Commodity* NewProduct(const char* name, size_t price)
@@ -28,9 +22,16 @@ Commodity* NewProduct(const char* name, size_t price)
 	if (!commodity) {
 		return NULL;
 	}
-	strncpy(commodity->m_CommodityName, name, sizeof(name));
+	strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));
 	commodity->m_CommodityPrices = price;
 	return commodity;
+}
+
+// 名字查找函数
+bool FindName(void* pValue, void* cmpValue)
+{
+	Commodity* commodity = (Commodity*)pValue;
+	return strncmp(commodity->m_CommodityName, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
 }
 
 // 添加商品
@@ -49,6 +50,7 @@ void AddProducts()
 	size_t price;
 	erromes = scanf("%zu", &price);
 	CleanBuffer();
+	printf("添加成功\n");
 	if (NumInputFailure(erromes)) {
 		printf("输入错误。\n");
 		return;
@@ -61,13 +63,6 @@ void AddProducts()
 }
 
 
-
-// 名字查找函数
-bool FindName(void* pValue, void* cmpValue)
-{
-	Commodity* commodity = (Commodity*)pValue;
-	return strncmp(commodity->m_CommodityName, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
-}
 
 // 选择修改的商品
 Node* ChooseProduct()
@@ -112,7 +107,8 @@ void ModifyProducts()
 			printf("输入错误。\n");
 			return;
 		}
-		strncpy(((Commodity*)(node->m_Data))->m_CommodityName, name, sizeof(name));
+		Commodity* commodity = (Commodity*)(node->m_Data);
+		strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));
 		printf("修改成功。\n");
 		break;
 	}
@@ -139,16 +135,7 @@ void ModifyProducts()
 
 
 
-// 打印订单链表
-void PrintOrderForm(void* pValue, void* operateValue)
-{
-	OrderForm* orderForm = (OrderForm*)(pValue);
-	printf("%zu\t%s\t%zu\t%zu\t%s\t%s\t%s\t%s\n",
-		orderForm->m_OrderNumber, orderForm->m_CommodityName,
-		orderForm->m_CommodityNum, orderForm->m_CommodityPrices,
-		orderForm->m_UserName, orderForm->m_UserPhoneNum,
-		orderForm->m_UserAddress, orderForm->m_OrderStatus);
-}
+
 
 // 查找函数
 bool FindOrderForm(void* pValue, void* cmpValue)
@@ -213,19 +200,6 @@ void ManageDistribute()
 
 
 
-void SaveOrderForm(void* pValue, void* operateValue)
-{
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(OrderForm), 1, pfw);
-}
-
-void SaveCommodity(void* pValue, void* operateValue)
-{
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(Commodity), 1, pfw);
-}
-
-
 
 void MerchantUI()
 {
@@ -241,6 +215,7 @@ void MerchantUI()
 	};
 	enum MasterMenu select;
 	do {
+		system("cls");
 		MerchantCatalogue();	//打印目录
 		printf("请选择:");
 		scanf("%d", &select);
@@ -248,39 +223,30 @@ void MerchantUI()
 		system("cls");
 		switch (select) {
 		case EXIT: {	// 退出
-			FILE* opfw = fopen("OrderForm.dat", "wb");	//创建文件
-			if (opfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_OrderForm, SaveOrderForm, opfw);
-			FILE* cpfw = fopen("Commodity.dat", "wb");	//创建文件
-			if (cpfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_Commodity, SaveCommodity, cpfw);
-			fclose(opfw);
-			fclose(cpfw);
+			SaveCommodity();
+			SaveOrderForm();
 			break;
 		}
 		case ADDPRODUCTS: {	// 添加商品
 			AddProducts();
+			SaveCommodity();
 			getchar();
 			break;
 		}
 		case VIEWPRODUCTS: {	//查看商品
-			TraversalOperation(g_Commodity, PrintProducts, NULL);
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			getchar();
 			break;
 		}
 		case MODIFYPRODUCTS: {
 			ModifyProducts();
+			SaveCommodity();
 			getchar();
 			break;
 		}
 		case MANAGEDISTRIBUTE: {
 			ManageDistribute();
+			SaveOrderForm();
 			getchar();
 			break;
 		}

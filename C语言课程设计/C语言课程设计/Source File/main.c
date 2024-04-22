@@ -10,46 +10,6 @@
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
 
-void MasterCatalogue()
-{
-	printf("*****************0.EXIT         ********************\n");
-	printf("*****************1.USER         ********************\n");
-	printf("*****************2.MERCHANT     ********************\n");
-}
-
-void MasterUI()
-{
-	enum MasterMenu {
-		EXIT, USER, MERCHANT
-	};
-	enum MasterMenu select;
-	do {
-		MasterCatalogue();	//打印目录
-		printf("请选择:");
-		scanf("%d", &select);
-		CleanBuffer();
-		system("cls");
-		switch (select) {
-		case EXIT:
-
-			break;
-		case USER: {
-			UserUI();
-			break;
-		}
-		case MERCHANT: {
-			MerchantUI();
-			break;
-		}
-		default: {
-			printf("输入错误。\n");
-			getchar();
-			break;
-		}
-		}
-		system("cls");
-	} while (select);
-}
 
 void* InitOrderForm()
 {
@@ -105,11 +65,65 @@ bool InitInformation()
 		if (!value) {
 			return false;
 		}
-		for (; fread(value, size[i], 1, pfr); PushFront(*list, value));
+		for (; fread(value, size[i], 1, pfr); ) {
+			PushFront(*list, value);
+			value = func[i]();
+			if (!value) {
+				return false;
+			}
+		}
+		free(value);
+		value = NULL;
 		fclose(pfr);
 	}
 	return true;
 }
+
+
+void MasterCatalogue()
+{
+	printf("欢迎使用订水信息管理系统，请输入数字选择想要进行的操作\n");
+	printf("*****************  0.退出程序     ********************\n");
+	printf("*****************  1.用户通道     ********************\n");
+	printf("*****************  2.商家通道     ********************\n");
+}
+
+void MasterUI()
+{
+	enum MasterMenu {
+		EXIT, USER, MERCHANT
+	};
+	enum MasterMenu select;
+	do {
+		MasterCatalogue();	//打印目录
+		printf("请选择:");
+		scanf("%d", &select);
+		CleanBuffer();
+		system("cls");
+		switch (select) {
+		case EXIT:
+			SaveCommodity();
+			SaveOrderForm();
+			SaveUserinfo();
+			break;
+		case USER: {
+			UserUI();
+			break;
+		}
+		case MERCHANT: {
+			MerchantUI();
+			break;
+		}
+		default: {
+			printf("输入错误。\n");
+			getchar();
+			break;
+		}
+		}
+		system("cls");
+	} while (select);
+}
+
 
 int main()
 {

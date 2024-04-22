@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include"User.h"
+#include"windows.h"
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
 #define ASSERTPOINTER(T) if (!(T)) {return NULL;}
@@ -20,8 +21,9 @@ bool RechargeUserAccount(Userinfo* user, size_t amount) {
 void Recharge(Node* userMes) 
 {
     // 用户信息在登录时就找到了，不用再输了    
-
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
     size_t amount;
+    printf("当前余额：%zu\n", userinfo->m_Balance);
     printf("请输入充值金额：\n");
     int error = scanf("%zu", &amount); // 获取用户输入的充值金额
     CleanBuffer();
@@ -30,21 +32,16 @@ void Recharge(Node* userMes)
         return;
     }
 
-    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    
     userinfo->m_Balance += amount;   // 这里没必要写成函数
     printf("充值成功，当前余额：%zu\n", userinfo->m_Balance); // 充值成功，打印当前余额
+    Sleep(1000);
 }
 
 
 
 
-void PrintCommofity(void* pValue, void* operateValue)
-{
-    Commodity* commofity = (Commodity*)(pValue);
-    printf("%s\t%lld\n",
-        commofity->m_CommodityName,
-        commofity->m_CommodityPrices);
-}
+
 
 bool FindProduct(void* pValue, void* cmpValue)
 {
@@ -148,6 +145,7 @@ void InformChange(Node* userMes)
     system("cls");
     switch (select) {
     case EXIT: {	// 退出
+
         break;
     }
     case NAME: {
@@ -228,10 +226,11 @@ void InformChange(Node* userMes)
 
 void UserCatalogue()
 {
-    printf("*****************0.EXIT            ********************\n");
-    printf("*****************1.PURCHASEPRODUCT ********************\n");
-    printf("*****************2.RECHARGE        ********************\n");
-    printf("*****************3.InformChange    ********************\n");
+    printf("*****************  0.返回主界面      ********************\n");
+    printf("*****************  1.购买商品        ********************\n");
+    printf("*****************  2.账户充值        ********************\n");
+    printf("*****************  3.资料修改        ********************\n");
+    printf("*****************  4.查看资料        ********************\n");
 }
 
 
@@ -242,12 +241,12 @@ void UserUI()
     if (!UserMes) {
         return;
     }
-
     enum UserMenu {
-        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE
+        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE, CheckMaterial
     };
 	enum MasterMenu select;
 	do {
+        system("cls");
         UserCatalogue();	//打印目录
         printf("请选择:");
 		scanf("%d", &select);
@@ -255,25 +254,28 @@ void UserUI()
 		system("cls");
 		switch (select) {
         case EXIT: {
-            FILE* pfw = fopen("Userinfo.dat", "wb");	//创建文件
-            if (pfw == NULL) {
-                printf("%s", strerror(errno));
-                return;
-            }
-            TraversalOperation(g_Userinfo, SaveUserinfo, pfw);
-            fclose(pfw);
+            SaveUserinfo();
+            SaveOrderForm();
             break;
         }
-        case PURCHASEPRODUCT: {
+        case PURCHASEPRODUCT: { //购买商品
             PurchaseProduct(UserMes);
+            SaveOrderForm();
             break;
         }
-        case RECHARGE: {
+        case RECHARGE: {    //充值
             Recharge(UserMes);
+            SaveUserinfo();
             break;
         }
-        case INFORMCHANGE: {
+        case INFORMCHANGE: {    //修改个人信息
             InformChange(UserMes);
+            SaveUserinfo();
+            break;
+        }
+        case CheckMaterial: {   // 查看个人信息
+            PrintUserAll(UserMes->m_Data, NULL);
+            getchar();
             break;
         }
 		default: {

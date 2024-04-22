@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "LoginSystem.h"
+#include "windows.h"
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
 
@@ -45,13 +46,7 @@ Node* UserLogin()
 
 
 
-// 显示账号信息,这里没有显示账号的密码
-void PrintUser(void* pValue)
-{
-	Userinfo* userinfo = (Userinfo*)pValue;
-	printf("%s\t%s\t%s\t%lld\n", userinfo->m_Username, userinfo->m_UserPhoneNum, userinfo->m_Address,
-		userinfo->m_Balance);
-}
+
 
 //构造对象
 Userinfo* NewUser(Userinfo e)
@@ -111,7 +106,7 @@ void UserRegister()
 		return;
 	}
 
-	printf("请输入注册的用户余额：\n");
+	printf("请输入要充值的金额：\n");
 	erromes = scanf("%lld", &e.m_Balance);
 	CleanBuffer();
 	if (NumInputFailure(erromes)) {
@@ -133,18 +128,13 @@ bool FindUser(void* pValue, void* cmpValue)
 	return strncmp(userinfo->m_Username, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
 }
 
-//保存账号信息
-void SaveUserinfo(void* pValue, void* operateValue)
-{
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(Userinfo), 1, pfw);
-}
+
 
 void UserLoginCatalogue()
 {
-	printf("*****************0.退出********************\n");
-	printf("*****************1.用户注册 ********************\n");
-	printf("*****************2.用户登录 ****************\n");
+	printf("**************   0.返回主界面     ********************\n");
+	printf("**************   1.用户注册       ********************\n");
+	printf("**************   2.用户登录       ********************\n");
 }
 
 Node* UserLoginUI()
@@ -161,22 +151,16 @@ Node* UserLoginUI()
 		system("cls");
 		switch (select) {
 		case EXIT: {	//保存用户信息并退出
-			FILE* pfw = fopen("Userinfo.dat", "wb");	//创建文件
-			if (pfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_Userinfo, SaveUserinfo, pfw);
-			fclose(pfw);
+			SaveUserinfo();
 			break;
 		}
 		case USERREGISTER: {  //用户注册
 			UserRegister();
+			SaveUserinfo();
 			getchar();
 			break;
 			}
 		case USERLOGIN: {//用户登录
-
 			Node* node = UserLogin();
 			if (!node) {
 				printf("登录失败\n");
@@ -185,6 +169,7 @@ Node* UserLoginUI()
 				printf("登录成功\n");
 				return node;
 			}
+			SaveUserinfo();
 			getchar();
 			break;
 		}
@@ -222,10 +207,12 @@ bool MerchantLogin()
 	}
 	if (strncmp(correctPassword, password, sizeof(password)) == 0) {
 		printf("登录成功。\n");
+		Sleep(1000);
 		return true;
 	}
 	else {
 		printf("登录失败。\n");
+		Sleep(1000);
 		return false;
 	}
 }

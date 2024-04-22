@@ -33,6 +33,9 @@
     <ClCompile Include="Source File\Test.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Source File\Util.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source File\User.h">

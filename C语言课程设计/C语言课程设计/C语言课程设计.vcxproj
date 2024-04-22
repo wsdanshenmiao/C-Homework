@@ -153,6 +153,7 @@
     <ClCompile Include="Source File\Merchant.c" />
     <ClCompile Include="Source File\Test.c" />
     <ClCompile Include="Source File\User.c" />
+    <ClCompile Include="Source File\Util.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source File\GlobalVariable.h" />
