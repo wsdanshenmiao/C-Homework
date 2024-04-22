@@ -1,25 +1,16 @@
-﻿  LoginSystem.c
+﻿  List.c
+  LoginSystem.c
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(54,23): warning C4090: “=”: 不同的“const”限定符
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(73,23): warning C4090: “=”: 不同的“const”限定符
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(149,23): warning C4090: “=”: 不同的“const”限定符
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(206,3): warning C4033: “MerchantLogin”必须返回值
+  main.c
   Merchant.c
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(88,2): warning C4013: “system”未定义；假设外部返回 int
   Test.c
   User.c
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(20,60): warning C4474: printf: 格式字符串中传递的参数太多
-  D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(20,60):
-  占位符和其参数预计 1 可变参数，但提供的却是 2 参数
-  
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(92,2): warning C4013: “system”未定义；假设外部返回 int
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(145,9): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“size_t”
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(145,9): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 3 拥有了类型“size_t”
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(145,9): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 4 拥有了类型“size_t”
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(148,35): warning C4474: printf: 格式字符串中传递的参数太多
-  D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(148,35):
-  占位符和其参数预计 5 可变参数，但提供的却是 8 参数
-  
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(164,30): warning C4474: scanf: 格式字符串中传递的参数太多
-  D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(164,30):
-  占位符和其参数预计 0 可变参数，但提供的却是 1 参数
-  
-  main.c
+  Util.c
   正在生成代码...
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(7,1): warning C4716: “MerchantLogin”: 必须返回一个值
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(13,1): warning C4716: “UserLogin”: 必须返回一个值
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(184,1): warning C4715: “UserLoginUI”: 不是所有的控件路径都返回值
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(218,1): warning C4715: “MerchantLogin”: 不是所有的控件路径都返回值
   C语言课程设计.vcxproj -> D:\Git版本管理\C\C-Homework\C语言课程设计\Build\bin\x64\Debug\C语言课程设计.exe
