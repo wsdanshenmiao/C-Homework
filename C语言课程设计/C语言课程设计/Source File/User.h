@@ -11,7 +11,8 @@
 
 
 void UserUI();
-void PurchaseProduct();
+void PurchaseProduct(Node* userMes);
+void Recharge(Node* userMes);
 
 
 #endif // !__USER__H__

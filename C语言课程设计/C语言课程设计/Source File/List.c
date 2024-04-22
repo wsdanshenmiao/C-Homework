@@ -143,7 +143,9 @@ Node* Insert(List* list, Node* pos, const void* const pValue)
 		return NULL;
 	}
 	Node* node = MALLOC(Node);
-	ASSERTNODE(node);
+	if (!node) {
+		return NULL;
+	}
 	node->m_Data = pValue;
 	node->m_Next = pos;
 	node->m_Pre = pos->m_Pre;
@@ -196,11 +198,11 @@ Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue)
 *  @param		: list 遍历的链表，operation 操作函数，用于定义怎样处理数据
 *  @return		: None
 */
-void TraversalOperation(List* list, void operation(void*))
+void TraversalOperation(List* list, void operation(void*, void*), void* operateValue)
 {
 	ASSERTLIST(list);
 	for (Node* node = list->m_Head->m_Next; node != list->m_Head; node = node->m_Next) {
-		operation(node->m_Data);
+		operation(node->m_Data, operateValue);
 	}
 }
 

@@ -11,13 +11,13 @@ inline void CleanBuffer()
 }
 
 // ×Ö·û´®ÊäÈë¼ì²â£¬ÊäÈëÊ§°Ü·µ»Øtrue
-inline bool StrInputFailure(int erromes, char* name)
+inline bool StrInputFailure(int erromes, char* name, size_t size)
 {
 	if (!name) {
 		return true;
 	}
-	size_t len = strnlen_s(name, sizeof(name));
-	if (!erromes || erromes == EOF || len == 0 || len >= sizeof(name)) {
+	size_t len = strnlen(name, size);
+	if (!erromes || erromes == EOF || len == 0 || len >= size) {
 		return true;
 	}
 	return false;

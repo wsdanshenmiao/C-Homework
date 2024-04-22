@@ -38,7 +38,7 @@ void Recharge(Node* userMes)
 
 
 
-void PrintCommofity(void* pValue)
+void PrintCommofity(void* pValue, void* operateValue)
 {
     Commodity* commofity = (Commodity*)(pValue);
     printf("%s\t%lld\n",
@@ -58,7 +58,7 @@ Node* SelectProduct() {
     char name[20]; // 存储输入的商品名称
     int error = scanf("%s", name); // 读取用户输入
     CleanBuffer(); // 清除输入缓冲区
-    if (StrInputFailure(error, name)) { // 检查输入是否失败
+    if (StrInputFailure(error, name, sizeof(name))) { // 检查输入是否失败
         printf("输入错误，请重新输入。\n");
         return NULL; // 输入失败时返回 NULL
     }
@@ -101,7 +101,7 @@ OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity
 // 用户购买商品
 void PurchaseProduct(Node* userMes)
 {
-    TraversalOperation(g_Commodity, PrintCommofity);
+    TraversalOperation(g_Commodity, PrintCommofity, NULL);
     Node* selectedProduct = SelectProduct(); // 用户选择商品
     if (!selectedProduct) {
         return; // 如果商品选择失败，返回
@@ -119,12 +119,6 @@ void PurchaseProduct(Node* userMes)
     }
     PushFront(g_OrderForm, order); // 将订单加入订单链表          这就没必要写成函数了
     printf("订单提交成功！订单号：%zu\n", order->m_OrderNumber); // 输出订单提交成功信息及订单号
-}
-
-void UserCatalogue()
-{
-	printf("*****************0.EXIT ********************\n");
-    printf("*****************1.PURCHASEPRODUCT ********************\n");
 }
 
 
@@ -161,7 +155,7 @@ void InformChange(Node* userMes)
         char name[20];
         int erromes = scanf("%s", name);
         CleanBuffer();
-        if (StrInputFailure(erromes, name)) {
+        if (StrInputFailure(erromes, name, sizeof(name))) {
             printf("输入错误。\n");
             return;
         }
@@ -174,15 +168,15 @@ void InformChange(Node* userMes)
         char password1[20];
         int erromes = scanf("%s", password1);
         CleanBuffer();
-        if (StrInputFailure(erromes, password1) || !IsNumber(password1, sizeof(password1))) {
+        if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsNumber(password1, sizeof(password1))) {
             printf("输入错误。\n");
             return;
         }
         printf("请确认新的密码：\n");
         char password2[20];
-        int erromes = scanf("%s", password2);
+        erromes = scanf("%s", password2);
         CleanBuffer();
-        if (StrInputFailure(erromes, password2) || !IsNumber(password2, sizeof(password2))) {
+        if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsNumber(password2, sizeof(password2))) {
             printf("输入错误。\n");
             return;
         }
@@ -201,7 +195,7 @@ void InformChange(Node* userMes)
         char phoneNum[20];
         int erromes = scanf("%s", phoneNum);
         CleanBuffer();
-        if (StrInputFailure(erromes, phoneNum) || !IsNumber(phoneNum, sizeof(phoneNum))) {
+        if (StrInputFailure(erromes, phoneNum, sizeof(phoneNum)) || !IsNumber(phoneNum, sizeof(phoneNum))) {
             printf("输入错误。\n");
             return;
         }
@@ -214,7 +208,7 @@ void InformChange(Node* userMes)
         char address[40];
         int erromes = scanf("%s", address);
         CleanBuffer();
-        if (StrInputFailure(erromes, address)) {
+        if (StrInputFailure(erromes, address, sizeof(address))) {
             printf("输入错误。\n");
             return;
         }
@@ -232,11 +226,19 @@ void InformChange(Node* userMes)
 
 
 
+void UserCatalogue()
+{
+    printf("*****************0.EXIT            ********************\n");
+    printf("*****************1.PURCHASEPRODUCT ********************\n");
+    printf("*****************2.RECHARGE        ********************\n");
+    printf("*****************3.InformChange    ********************\n");
+}
+
 
 void UserUI()
 {
 
-    Node* UserMes = UserLogin();
+    Node* UserMes = UserLoginUI();
     if (!UserMes) {
         return;
     }
@@ -246,13 +248,20 @@ void UserUI()
     };
 	enum MasterMenu select;
 	do {
-		UserCatalogue();	//打印目录
-		printf("请选择:");
+        UserCatalogue();	//打印目录
+        printf("请选择:");
 		scanf("%d", &select);
 		CleanBuffer();
 		system("cls");
 		switch (select) {
         case EXIT: {
+            FILE* pfw = fopen("Userinfo.dat", "wb");	//创建文件
+            if (pfw == NULL) {
+                printf("%s", strerror(errno));
+                return;
+            }
+            TraversalOperation(g_Userinfo, SaveUserinfo, pfw);
+            fclose(pfw);
             break;
         }
         case PURCHASEPRODUCT: {

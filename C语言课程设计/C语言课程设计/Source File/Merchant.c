@@ -7,17 +7,18 @@
 
 void MerchantCatalogue()
 {
-	printf("*****************0.EXIT		2.ADDPRODUCTS*******************\n");
-	printf("*****************1.VIEWPRODUCTS			3.MODIFYPRODUCTS********************\n");
+	printf("*****************0.EXIT		            ********************\n");
+	printf("*****************1.ADDPRODUCTS			********************\n");
+	printf("*****************2.VIEWPRODUCTS		    ********************\n");
+	printf("*****************3.MODIFYPRODUCTS		********************\n");
 	printf("*****************4.MANAGEDISTRIBUTE		********************\n");
-
 }
 
 // 打印商品链表
-void PrintProducts(void* pValue)
+void PrintProducts(void* pValue, void* operateValue)
 {
 	Commodity* commodity = (Commodity*)pValue;
-	printf("%s\t%%zu\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
+	printf("%s\t%zu\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
 }
 
 // 创建对象
@@ -39,7 +40,7 @@ void AddProducts()
 	char name[20];
 	int erromes = scanf("%s", name);
 	CleanBuffer();
-	if (StrInputFailure(erromes, name)) {
+	if (StrInputFailure(erromes, name, sizeof(name))) {
 		printf("输入错误。\n");
 		return;
 	}
@@ -75,7 +76,7 @@ Node* ChooseProduct()
 	char name[20];
 	int erromes = scanf("%s", name);
 	CleanBuffer();
-	if (StrInputFailure(erromes, name)) {
+	if (StrInputFailure(erromes, name, sizeof(name))) {
 		return NULL;
 	}
 	return Find(g_Commodity, FindName, name);
@@ -107,7 +108,7 @@ void ModifyProducts()
 		char name[20];
 		int erromes = scanf("%s", name);
 		CleanBuffer();
-		if (StrInputFailure(erromes, name)) {
+		if (StrInputFailure(erromes, name, sizeof(name))) {
 			printf("输入错误。\n");
 			return;
 		}
@@ -139,10 +140,10 @@ void ModifyProducts()
 
 
 // 打印订单链表
-void PrintOrderForm(void* pValue)
+void PrintOrderForm(void* pValue, void* operateValue)
 {
 	OrderForm* orderForm = (OrderForm*)(pValue);
-	printf("%%zu\t%s\t%%zu\t%%zu\t%s\t%s\t%s\t%s\n",
+	printf("%zu\t%s\t%zu\t%zu\t%s\t%s\t%s\t%s\n",
 		orderForm->m_OrderNumber, orderForm->m_CommodityName,
 		orderForm->m_CommodityNum, orderForm->m_CommodityPrices,
 		orderForm->m_UserName, orderForm->m_UserPhoneNum,
@@ -161,7 +162,7 @@ Node* ChooseOrderForm()
 {
 	printf("请输入要管理的订单编号：\n");
 	size_t orderNum;
-	int erromes = scanf("%%zu", &orderNum);
+	int erromes = scanf("%zu", &orderNum);
 	CleanBuffer();
 	if (NumInputFailure(erromes)) {
 		return NULL;
@@ -172,7 +173,7 @@ Node* ChooseOrderForm()
 // 管理配送状态
 void ManageDistribute()
 {
-	TraversalOperation(g_OrderForm, PrintOrderForm);
+	TraversalOperation(g_OrderForm, PrintOrderForm, NULL);
 	Node* node = ChooseOrderForm();
 	if (!node) {
 		printf("未有此订单。\n");
@@ -212,26 +213,16 @@ void ManageDistribute()
 
 
 
-void SaveOrderForm(void* pValue)
+void SaveOrderForm(void* pValue, void* operateValue)
 {
-	FILE* pfw = fopen("OrderForm.dat", "wb");	//创建文件
-	if (pfw == NULL) {
-		printf("%s", strerror(errno));
-		return;
-	}
+	FILE* pfw = (FILE*)operateValue;
 	fwrite(pValue, sizeof(OrderForm), 1, pfw);
-	fclose(pfw);
 }
 
-void SaveCommodity(void* pValue)
+void SaveCommodity(void* pValue, void* operateValue)
 {
-	FILE* pfw = fopen("Commodity.dat", "wb");	//创建文件
-	if (pfw == NULL) {
-		printf("%s", strerror(errno));
-		return;
-	}
+	FILE* pfw = (FILE*)operateValue;
 	fwrite(pValue, sizeof(Commodity), 1, pfw);
-	fclose(pfw);
 }
 
 
@@ -257,8 +248,20 @@ void MerchantUI()
 		system("cls");
 		switch (select) {
 		case EXIT: {	// 退出
-			TraversalOperation(g_OrderForm, SaveOrderForm);
-			TraversalOperation(g_Commodity, SaveCommodity);
+			FILE* opfw = fopen("OrderForm.dat", "wb");	//创建文件
+			if (opfw == NULL) {
+				printf("%s", strerror(errno));
+				return;
+			}
+			TraversalOperation(g_OrderForm, SaveOrderForm, opfw);
+			FILE* cpfw = fopen("Commodity.dat", "wb");	//创建文件
+			if (cpfw == NULL) {
+				printf("%s", strerror(errno));
+				return;
+			}
+			TraversalOperation(g_Commodity, SaveCommodity, cpfw);
+			fclose(opfw);
+			fclose(cpfw);
 			break;
 		}
 		case ADDPRODUCTS: {	// 添加商品
@@ -267,7 +270,7 @@ void MerchantUI()
 			break;
 		}
 		case VIEWPRODUCTS: {	//查看商品
-			TraversalOperation(g_Commodity, PrintProducts);
+			TraversalOperation(g_Commodity, PrintProducts, NULL);
 			getchar();
 			break;
 		}

@@ -4,6 +4,12 @@
 /*
 	Versions2 修改链表结构，模拟析构函数，并增加 Clear 方法清理链表，和 Destroy 方法销毁链表
 */
+/*
+	Versions3 修改 Find方法，为其添加一个参数，增加灵活性
+*/
+/*
+	Versions4 修改 TraversalOperation方法，为其添加一个参数，增加灵活性
+*/
 
 #ifndef __LIST__H__
 #define __LIST__H__
@@ -37,7 +43,7 @@ void DefaultDeallocate(void* pValue);
 Node* Insert(List* list, Node* pos, const void* const pValue);
 Node* Erase(List* list, Node* pos);
 Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue);
-void TraversalOperation(List* list, void operation(void*));
+void TraversalOperation(List* list, void operation(void*, void*), void* operateValue);
 void Clear(List* list);
 List* Destroy(List* list);
 
