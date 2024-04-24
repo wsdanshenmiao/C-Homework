@@ -31,7 +31,6 @@ bool InitInformation()
 	g_OrderForm = InitList(DefaultDeallocate);
 	g_Userinfo = InitList(DefaultDeallocate);
 	g_Commodity = InitList(DefaultDeallocate);
-
 	List** pList[3] = {
 		&g_OrderForm,
 		&g_Userinfo,
@@ -79,6 +78,12 @@ bool InitInformation()
 	return true;
 }
 
+void DestroyData()
+{
+	Destroy(g_Commodity);
+	Destroy(g_OrderForm);
+	Destroy(g_Userinfo);
+}
 
 void MasterCatalogue()
 {
@@ -131,5 +136,6 @@ int main()
 		return 0;
 	}
 	MasterUI();
+	DestroyData();
 	return 0;
 }

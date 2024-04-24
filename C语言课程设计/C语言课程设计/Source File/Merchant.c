@@ -18,12 +18,12 @@ void MerchantCatalogue()
 // 创建对象
 Commodity* NewProduct(const char* name, size_t price)
 {
-	Commodity* commodity = MALLOC(Commodity);
+	Commodity* commodity = MALLOC(Commodity);    //malloc返回指针
 	if (!commodity) {
 		return NULL;
 	}
-	strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));
-	commodity->m_CommodityPrices = price;
+	strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));		//将name的数据赋给结构体中的变量
+	commodity->m_CommodityPrices = price;		//将price赋给结构体中对应的变量
 	return commodity;
 }
 
@@ -39,10 +39,10 @@ void AddProducts()
 {
 	printf("请输入商品名称：\n");
 	char name[20];
-	int erromes = scanf("%s", name);
+	int erromes = scanf("%s", name);		
 	CleanBuffer();
 	if (StrInputFailure(erromes, name, sizeof(name))) {
-		printf("输入错误。\n");
+		printf("输入错误。\n");					//erromes存储scanf的返回值，scanf存在返回值0或-1,通过返回值判断输入是否正确
 		return;
 	}
 
@@ -51,7 +51,10 @@ void AddProducts()
 	erromes = scanf("%zu", &price);
 	CleanBuffer();
 	printf("添加成功\n");
-	if (NumInputFailure(erromes)) {
+	//printf("是否继续添加\n");
+	//printf("0.是\n");
+	//printf("1.否\n");
+	if (NumInputFailure(erromes)) {				//与字符串检测同理
 		printf("输入错误。\n");
 		return;
 	}
@@ -59,7 +62,7 @@ void AddProducts()
 	if (!commodity) {
 		return;
 	}
-	PushFront(g_Commodity, commodity);	//插入对象
+	PushFront(g_Commodity, commodity);	//插入新添加的商品信息
 }
 
 
@@ -74,18 +77,18 @@ Node* ChooseProduct()
 	if (StrInputFailure(erromes, name, sizeof(name))) {
 		return NULL;
 	}
-	return Find(g_Commodity, FindName, name);
+	return Find(g_Commodity, FindName, name);		//在g_Commodity链表内查找是否存在与name相等的数据
 }
 
 // 修改商品
 void ModifyProducts()
 {
-	Node* node = ChooseProduct();
+	Node* node = ChooseProduct();			//根据返回值决定下一步操作
 	if (!node) {
 		printf("未有此商品。\n");
 		return;
 	}
-	system("cls");
+	//system("cls");
 	enum Modify {
 		EXIT, NAME, PRICE
 	};
@@ -107,7 +110,7 @@ void ModifyProducts()
 			printf("输入错误。\n");
 			return;
 		}
-		Commodity* commodity = (Commodity*)(node->m_Data);
+		Commodity* commodity = (Commodity*)(node->m_Data);			
 		strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));
 		printf("修改成功。\n");
 		break;
@@ -170,11 +173,11 @@ void ManageDistribute()
 		EXIT, INDELIVERY, HAVEBEENDELIVERED
 	};
 	enum Modify select;
-	printf("请选择要修改的成员:\n");
+	printf("请选择要修改的订单状态:\n");
 	printf("0.取消修改\t\t1.配送中\t\t2.已送达\n");
 	scanf("%d", &select);
 	CleanBuffer();
-	system("cls");
+	//system("cls");
 	switch (select) {
 	case EXIT: {	// 退出
 		break;
@@ -203,7 +206,7 @@ void ManageDistribute()
 
 void MerchantUI()
 {
-	if (!MerchantLogin()) {	//登录失败则退出
+	if (!MerchantLoginUI()) {	//登录失败则退出
 		return;
 	}
 	enum MerchantMenu{
@@ -228,6 +231,8 @@ void MerchantUI()
 			break;
 		}
 		case ADDPRODUCTS: {	// 添加商品
+			printf("已存在商品：\n");
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			AddProducts();
 			SaveCommodity();
 			getchar();
@@ -239,6 +244,8 @@ void MerchantUI()
 			break;
 		}
 		case MODIFYPRODUCTS: {
+			printf("已存在商品：\n");
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			ModifyProducts();
 			SaveCommodity();
 			getchar();

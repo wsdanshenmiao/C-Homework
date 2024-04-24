@@ -1,16 +1,3 @@
-﻿  List.c
-  LoginSystem.c
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(54,23): warning C4090: “=”: 不同的“const”限定符
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(73,23): warning C4090: “=”: 不同的“const”限定符
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\List.c(149,23): warning C4090: “=”: 不同的“const”限定符
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(206,3): warning C4033: “MerchantLogin”必须返回值
-  main.c
-  Merchant.c
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\Merchant.c(88,2): warning C4013: “system”未定义；假设外部返回 int
-  Test.c
-  User.c
-  Util.c
-  正在生成代码...
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(184,1): warning C4715: “UserLoginUI”: 不是所有的控件路径都返回值
-D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\LoginSystem.c(218,1): warning C4715: “MerchantLogin”: 不是所有的控件路径都返回值
+﻿  User.c
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\User.c(101,11): warning C4013: “time”未定义；假设外部返回 int
   C语言课程设计.vcxproj -> D:\Git版本管理\C\C-Homework\C语言课程设计\Build\bin\x64\Debug\C语言课程设计.exe

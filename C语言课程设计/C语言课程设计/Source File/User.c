@@ -8,6 +8,13 @@
 
 
 
+//电话查找函数，防止重复电话
+bool FindPhoneNum(void* pValue, void* cmpValue)
+{
+    Userinfo* userinfo = (Userinfo*)pValue;
+    return strncmp(userinfo->m_UserPhoneNum, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
+}
+
 // 用户充值
 bool RechargeUserAccount(Userinfo* user, size_t amount) {
     if (user == NULL || amount == 0) {
@@ -22,17 +29,22 @@ void Recharge(Node* userMes)
 {
     // 用户信息在登录时就找到了，不用再输了    
     Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
-    size_t amount;
+    int amount;
     printf("当前余额：%zu\n", userinfo->m_Balance);
     printf("请输入充值金额：\n");
-    int error = scanf("%zu", &amount); // 获取用户输入的充值金额
+    int error = scanf("%d", &amount); // 获取用户输入的充值金额
     CleanBuffer();
+    if (amount < 0) {
+        printf("输入错误，请重新输入。\n");
+        Sleep(1000);
+        return;
+    }
     if (NumInputFailure(error)) { // 检查输入是否失败
         printf("输入错误，请重新输入。\n");
+        Sleep(1000);
         return;
     }
 
-    
     userinfo->m_Balance += amount;   // 这里没必要写成函数
     printf("充值成功，当前余额：%zu\n", userinfo->m_Balance); // 充值成功，打印当前余额
     Sleep(1000);
@@ -57,11 +69,13 @@ Node* SelectProduct() {
     CleanBuffer(); // 清除输入缓冲区
     if (StrInputFailure(error, name, sizeof(name))) { // 检查输入是否失败
         printf("输入错误，请重新输入。\n");
+        Sleep(1000);
         return NULL; // 输入失败时返回 NULL
     }
     Node* node = Find(g_Commodity, FindProduct, name); // 在商品链表中查找商品
     if (!node) {
         printf("未找到该商品。\n"); // 若未找到商品，输出提示
+        Sleep(1000);
     }
     return node; // 返回找到的商品节点
 }
@@ -84,6 +98,7 @@ OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity
 {
     OrderForm* order = MALLOC(OrderForm); // 分配内存给订单
     ASSERTPOINTER(order);
+    srand(time(0));
     order->m_OrderNumber = rand();  // 随机生成订单号
     order->m_CommodityNum = quantity; // 设置购买数量
     order->m_CommodityPrices = commodity->m_CommodityPrices * quantity; // 计算总价格
@@ -109,27 +124,41 @@ void PurchaseProduct(Node* userMes)
     }
     Commodity* commodity = (Commodity*)(selectedProduct->m_Data);
     Userinfo* userinfo = (Userinfo*)(userMes->m_Data);  //用户信息在登录时就可以找到
+    if (userinfo->m_Balance >= (commodity->m_CommodityPrices * quantity)) {
+        userinfo->m_Balance = userinfo->m_Balance - (commodity->m_CommodityPrices * quantity);
+    }
+    else{
+        printf("余额不足，购买失败");
+        Sleep(1000);
+        return;
+    }
     OrderForm* order = CreateOrder(commodity, userinfo, quantity); // 创建订单
     if (!order) {
         printf("订单创建失败。\n"); // 如果订单创建失败，输出提示
+        Sleep(1000);
         return;
     }
     PushFront(g_OrderForm, order); // 将订单加入订单链表          这就没必要写成函数了
     printf("订单提交成功！订单号：%zu\n", order->m_OrderNumber); // 输出订单提交成功信息及订单号
+    Sleep(1000);
 }
 
 
 
 
-bool IsNumber(const char* str, size_t num)
-{
-    for (int i = 0; i < num; ++i) {
-        if (!isalnum(str[i])) {
+bool CompareArrays(const char* arr1, const char* arr2) {
+    // 检查两个数组的每个字符是否相等，直到遇到空字符 '\0'
+    while (*arr1 != '\0' && *arr2 != '\0') {
+        if (*arr1 != *arr2) {
             return false;
         }
+        ++arr1;
+        ++arr2;
     }
-    return true;
+    // 如果两个数组都遍历到了末尾（空字符 '\0'），则认为相等；否则认为不相等
+    return (*arr1 == '\0' && *arr2 == '\0');
 }
+
 
 void InformChange(Node* userMes)
 {
@@ -142,7 +171,7 @@ void InformChange(Node* userMes)
     printf("0.取消修改\t\t1.名字\t\t2.密码\t\t3.手机号\t\t4.地址\n");
     scanf("%d", &select);
     CleanBuffer();
-    system("cls");
+    //system("cls");
     switch (select) {
     case EXIT: {	// 退出
 
@@ -155,10 +184,19 @@ void InformChange(Node* userMes)
         CleanBuffer();
         if (StrInputFailure(erromes, name, sizeof(name))) {
             printf("输入错误。\n");
+            Sleep(1000);
             return;
         }
+
+        if (Find(g_Userinfo, FindUser, name)) {
+            printf("用户名已经存在\n");
+            Sleep(1000);
+            return;
+        }
+
         strncpy(userinfo->m_Username, name, sizeof(name));
         printf("修改成功。\n");
+        Sleep(1000);
         break;
     }
     case PASSWORD: {
@@ -166,24 +204,28 @@ void InformChange(Node* userMes)
         char password1[20];
         int erromes = scanf("%s", password1);
         CleanBuffer();
-        if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsNumber(password1, sizeof(password1))) {
-            printf("输入错误。\n");
+        if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsAllAlphaNumeric(password1, sizeof(password1))) {
+            printf("请输入符合格式要求的密码1。\n");
+            Sleep(1000);
             return;
         }
         printf("请确认新的密码：\n");
         char password2[20];
         erromes = scanf("%s", password2);
         CleanBuffer();
-        if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsNumber(password2, sizeof(password2))) {
-            printf("输入错误。\n");
+        if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsAllAlphaNumeric(password2, sizeof(password1))) {
+            printf("请输入符合格式要求的密码2。\n");
+            Sleep(1000);
             return;
         }
-        if (strncmp(password1, password2, sizeof(password1) == 0)) {
+        if (strncmp(password1, password2, sizeof(password1))) {
             strncpy(userinfo->m_Password, password2, sizeof(password2));
             printf("修改成功。\n");
+            Sleep(1000);
         }
         else {
             printf("输入不相同。\n");
+            Sleep(1000);
             return;
         }
         break;
@@ -193,12 +235,25 @@ void InformChange(Node* userMes)
         char phoneNum[20];
         int erromes = scanf("%s", phoneNum);
         CleanBuffer();
-        if (StrInputFailure(erromes, phoneNum, sizeof(phoneNum)) || !IsNumber(phoneNum, sizeof(phoneNum))) {
-            printf("输入错误。\n");
+        
+        if (StrInputFailure(erromes, phoneNum, sizeof(phoneNum)) || IsNumber(phoneNum, sizeof(phoneNum))) {
+            printf("请输入符合格式要求的电话号码。\n");
+            Sleep(1000);
+            return;
+        }
+        if (strlen(phoneNum) != 11) {
+            printf("请输入符合长度要求的电话号码。\n");
+            Sleep(1000);
+            return;
+        }
+        if (Find(g_Userinfo, FindPhoneNum, phoneNum)) {
+            printf("该电话已被注册\n");
+            Sleep(1000);
             return;
         }
         strncpy(userinfo->m_UserPhoneNum, phoneNum, sizeof(phoneNum));
         printf("修改成功。\n");
+        Sleep(1000);
         break;
     }
     case ADDRESS: {
@@ -208,14 +263,17 @@ void InformChange(Node* userMes)
         CleanBuffer();
         if (StrInputFailure(erromes, address, sizeof(address))) {
             printf("输入错误。\n");
+            Sleep(1000);
             return;
         }
         strncpy(userinfo->m_Address, address, sizeof(address));
         printf("修改成功。\n");
+        Sleep(1000);
         break;
     }
     default: {
         printf("输入错误。\n");
+        Sleep(1000);
         getchar();
         break;
     }
@@ -269,6 +327,7 @@ void UserUI()
             break;
         }
         case INFORMCHANGE: {    //修改个人信息
+            PrintUserAll(UserMes->m_Data, NULL);
             InformChange(UserMes);
             SaveUserinfo();
             break;

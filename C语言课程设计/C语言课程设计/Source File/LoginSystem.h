@@ -15,8 +15,9 @@ Userinfo* NewUser(Userinfo e);
 void UserRegister();
 bool FindUser(void* pValue, void* cmpValue);
 
-bool MerchantLogin();	//商家登录
+bool MerchantLogin(char correctPassword[20]);	//商家登录
 Node* UserLogin();	//用户登录
+void ChangePassword(char** correctPassword);
 
 #endif // !__LOGINSYSTEM__H__
 

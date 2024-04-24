@@ -43,6 +43,11 @@ void PrintUserAll(void* pValue, void* operateValue);
 // 打印账号信息,这里没有显示账号的密码
 void PrintUser(void* pValue, void* operateValue);
 
+// 全数字或字母
+bool IsAllAlphaNumeric(const char* str, size_t num);
+
+// 全数字
+bool IsNumber(const char* str, size_t num);
 
 
 #endif // !__HELLPFUNC__H__

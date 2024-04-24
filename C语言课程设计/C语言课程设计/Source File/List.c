@@ -226,7 +226,7 @@ void Clear(List* list)
 */
 List* Destroy(List* list)
 {
-	if (!list || list->m_Head) {
+	if (!list || !list->m_Head) {
 		return NULL;
 	}
 	Clear(list);
