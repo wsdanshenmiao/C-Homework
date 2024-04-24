@@ -13,8 +13,9 @@
 void UserUI();
 void PurchaseProduct(Node* userMes);
 void Recharge(Node* userMes);
-bool IsNumber(const char* str, size_t num);
 bool FindPhoneNum(void* pValue, void* cmpValue);
+void DrawStock(Node* userMes);
+
 
 
 #endif // !__USER__H__

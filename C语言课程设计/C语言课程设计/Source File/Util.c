@@ -149,7 +149,7 @@ bool IsAllAlphaNumeric(const char* str, size_t num)
 		return false;
 	}
 	// 遍历字符串直到遇到空字符 '\0'
-	for (size_t i = 0; i < num; ++i) {
+	for (size_t i = 0; str[i] != '\0' && i < num; ++i) {
 		// 如果当前字符不是字母或数字字符，返回 false
 		if (!('0' <= str[i] && str[i] <= '9') &&
 			!('a' <= str[i] && str[i] <= 'z') &&

@@ -94,20 +94,54 @@ size_t GetUserQuantity() {
 }
 
 // 创建订单
-OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity)
+OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity, char orderType[10])
 {
     OrderForm* order = MALLOC(OrderForm); // 分配内存给订单
     ASSERTPOINTER(order);
     srand(time(0));
+    // 即定即取配送全部，批量定取全部存库存里，用户自行选择是否配送
+    size_t deliverNum = strncmp(orderType, "即定即取", sizeof("即定即取")) ? 0 : quantity;
     order->m_OrderNumber = rand();  // 随机生成订单号
     order->m_CommodityNum = quantity; // 设置购买数量
+    order->m_DeliverNum = deliverNum;    // 已配送
+    order->m_UndeliverNum = quantity - deliverNum;  //库存
     order->m_CommodityPrices = commodity->m_CommodityPrices * quantity; // 计算总价格
     strncpy(order->m_UserName, userinfo->m_Username, sizeof(order->m_UserName)); // 设置用户名
     strncpy(order->m_UserPhoneNum, userinfo->m_UserPhoneNum, sizeof(order->m_UserPhoneNum)); // 设置用户电话号码
     strncpy(order->m_CommodityName, commodity->m_CommodityName, sizeof(order->m_CommodityName)); // 设置商品名称
     strncpy(order->m_UserAddress, userinfo->m_Address, sizeof(order->m_UserAddress)); // 设置用户地址
     strncpy(order->m_OrderStatus, "待发货", sizeof("待发货")); // 设置订单状态为“待发货”
+    strncpy(order->m_OrderType, orderType, sizeof(order->m_OrderType));
     return order; // 返回创建的订单
+}
+
+char* ChoseOrderType()
+{
+    printf("0.取消订购\t1.即定即取\t2.批量定取\n");
+    printf("请选择订单种类：\n");
+    int select;
+    scanf("%d", &select);
+    CleanBuffer();
+    switch (select) {
+    case 0: {
+        return NULL;
+        break;
+    }
+    case 1: { 
+        return "即定即取";
+        break;
+    }
+    case 2: { 
+        return "批量定取";
+        break;
+    }
+    default: {
+        printf("输入错误。\n");
+        getchar();
+        break;
+    }
+    }
+    return NULL;
 }
 
 // 用户购买商品
@@ -118,21 +152,29 @@ void PurchaseProduct(Node* userMes)
     if (!selectedProduct) {
         return; // 如果商品选择失败，返回
     }
+
     size_t quantity = GetUserQuantity(); // 获取用户输入的购买数量
     if (quantity == 0) {
         return; // 如果输入的数量为0，返回
     }
     Commodity* commodity = (Commodity*)(selectedProduct->m_Data);
     Userinfo* userinfo = (Userinfo*)(userMes->m_Data);  //用户信息在登录时就可以找到
-    if (userinfo->m_Balance >= (commodity->m_CommodityPrices * quantity)) {
-        userinfo->m_Balance = userinfo->m_Balance - (commodity->m_CommodityPrices * quantity);
+    size_t totalPrice = commodity->m_CommodityPrices * quantity;
+    if (userinfo->m_Balance >= totalPrice) {
+        userinfo->m_Balance = userinfo->m_Balance - totalPrice;
     }
     else{
         printf("余额不足，购买失败");
         Sleep(1000);
         return;
     }
-    OrderForm* order = CreateOrder(commodity, userinfo, quantity); // 创建订单
+
+    char* orderType = ChoseOrderType();
+    if (!orderType) {
+        return;
+    }
+
+    OrderForm* order = CreateOrder(commodity, userinfo, quantity, orderType); // 创建订单
     if (!order) {
         printf("订单创建失败。\n"); // 如果订单创建失败，输出提示
         Sleep(1000);
@@ -174,7 +216,6 @@ void InformChange(Node* userMes)
     //system("cls");
     switch (select) {
     case EXIT: {	// 退出
-
         break;
     }
     case NAME: {
@@ -218,7 +259,7 @@ void InformChange(Node* userMes)
             Sleep(1000);
             return;
         }
-        if (strncmp(password1, password2, sizeof(password1))) {
+        if (strncmp(password1, password2, sizeof(password1)) == 0) {
             strncpy(userinfo->m_Password, password2, sizeof(password2));
             printf("修改成功。\n");
             Sleep(1000);
@@ -257,7 +298,7 @@ void InformChange(Node* userMes)
         break;
     }
     case ADDRESS: {
-        printf("请输入新的名字：\n");
+        printf("请输入新的地址：\n");
         char address[40];
         int erromes = scanf("%s", address);
         CleanBuffer();
@@ -281,6 +322,67 @@ void InformChange(Node* userMes)
 }
 
 
+void TraversalStock(void* pValue, void* operateValue)
+{
+    Userinfo* userinfo = (Userinfo*)operateValue;
+    OrderForm* order = (OrderForm*)pValue;
+    if (!strncmp(order->m_UserName, userinfo->m_Username, sizeof(userinfo->m_Username)) &&
+        !strncmp(order->m_OrderType, "批量定取", sizeof("批量定取"))) {
+        printf("商品名：%s\t商品编号：%zu\t已提取数量：%zu\t未提取数量：%zu\n", 
+            order->m_CommodityName,
+            order->m_OrderNumber,
+            order->m_DeliverNum,
+            order->m_UndeliverNum);
+    }
+}
+
+bool FindStock(void* pValue, void* cmpValue)
+{
+    OrderForm* order = (OrderForm*)pValue;
+    size_t orderNum = *((size_t*)cmpValue);
+    if (order->m_OrderNumber == orderNum) {
+        return true;
+    }
+}
+
+void DrawStock(Node* userMes)
+{
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    TraversalOperation(g_OrderForm, TraversalStock, userinfo);
+    printf("请选择要提取订单。\n");
+    size_t orderNum;
+    int error = scanf("%zu", &orderNum);
+    CleanBuffer();
+    if (NumInputFailure(error)) {
+        printf("输入错误。\n");
+        getchar();
+        return;
+    }
+    Node* node = Find(g_OrderForm, FindStock, &orderNum);
+    if (!node) {
+        printf("无此订单。\n");
+        getchar();
+        return;
+    }
+    printf("请输入要提取的数量。\n");
+    size_t num;
+    error = scanf("%zu", &num);
+    CleanBuffer();
+    if (NumInputFailure(error)) {
+        printf("输入错误。\n");
+        getchar();
+        return;
+    }
+    OrderForm* order = (OrderForm*)(node->m_Data);
+    if (num<0 || num>order->m_UndeliverNum) {
+        printf("输入错误。\n");
+        getchar();
+        return;
+    }
+    order->m_UndeliverNum -= num;
+    order->m_DeliverNum += num;
+}
+
 
 void UserCatalogue()
 {
@@ -289,6 +391,7 @@ void UserCatalogue()
     printf("*****************  2.账户充值        ********************\n");
     printf("*****************  3.资料修改        ********************\n");
     printf("*****************  4.查看资料        ********************\n");
+    printf("*****************  5.查看库存并提取  ********************\n");
 }
 
 
@@ -300,7 +403,7 @@ void UserUI()
         return;
     }
     enum UserMenu {
-        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE, CheckMaterial
+        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE, CHECKMATERIAL, DRAWSTOCK
     };
 	enum MasterMenu select;
 	do {
@@ -332,9 +435,14 @@ void UserUI()
             SaveUserinfo();
             break;
         }
-        case CheckMaterial: {   // 查看个人信息
+        case CHECKMATERIAL: {   // 查看个人信息
             PrintUserAll(UserMes->m_Data, NULL);
             getchar();
+            break;
+        }
+        case DRAWSTOCK: {   // 查看库存并提取
+            DrawStock(UserMes);
+            SaveOrderForm();
             break;
         }
 		default: {

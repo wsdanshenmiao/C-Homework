@@ -83,6 +83,7 @@ Node* ChooseProduct()
 // 修改商品
 void ModifyProducts()
 {
+	TraversalOperation(g_Commodity, PrintCommofity, NULL);
 	Node* node = ChooseProduct();			//根据返回值决定下一步操作
 	if (!node) {
 		printf("未有此商品。\n");

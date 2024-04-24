@@ -1,3 +1,4 @@
 ﻿  User.c
 D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\User.c(101,11): warning C4013: “time”未定义；假设外部返回 int
+D:\Git版本管理\C\C-Homework\C语言课程设计\C语言课程设计\Source File\User.c(346,1): warning C4715: “FindStock”: 不是所有的控件路径都返回值
   C语言课程设计.vcxproj -> D:\Git版本管理\C\C-Homework\C语言课程设计\Build\bin\x64\Debug\C语言课程设计.exe
